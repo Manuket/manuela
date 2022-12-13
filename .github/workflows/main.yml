@@ -27,5 +27,5 @@ jobs:
      #finally build your app with the latest command
       - name: Build and test with Maven
         run: #TODO
-          mvn clean verify --file /manuela/simple-api-student-main/pom.xml
+          mvn clean verify --file ./simple-api-student-main/pom.xml
 
