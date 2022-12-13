@@ -39,6 +39,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.VARIABLES }} -p ${{ secrets.CONSTANTS }}
 
       - name: Build image and push backend
         uses: docker/build-push-action@v3
@@ -47,6 +49,7 @@ jobs:
           context: ./simple-api-student-main
        # Note: tags has to be all lower-case
           tags:  ${{secrets.VARIABLES}}/simple-api
+          push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Build image and push database
        # DO the same for database
@@ -56,6 +59,8 @@ jobs:
           context: ./database
        # Note: tags has to be all lower-case
           tags:  ${{secrets.VARIABLES}}/database
+          push: ${{ github.ref == 'refs/heads/main' }}
+          
       - name: Build image and push httpd
      # DO the same for httpd
         uses: docker/build-push-action@v3
@@ -64,6 +69,7 @@ jobs:
           context: ./http
        # Note: tags has to be all lower-case
           tags:  ${{secrets.VARIABLES}}/http
+          push: ${{ github.ref == 'refs/heads/main' }}
 
     
 
